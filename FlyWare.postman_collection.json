@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "0ec7f79c-cd9c-4b29-9d07-47f3ca9791d7",
+		"name": "FlyWare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27409613",
+		"_collection_link": "https://restless-shadow-909717.postman.co/workspace/My-Workspace~c305fa7f-1a8e-4099-8846-f299435d9cab/collection/27409613-0ec7f79c-cd9c-4b29-9d07-47f3ca9791d7?action=share&source=collection_link&creator=27409613"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "loginaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ValidateResponse\", function () {\r",
+									"    const respbody = cheerio.load(responseBody);\r",
+									"    console.log(respbody( \"a[href='logout']\").attr('href'));\r",
+									"   pm.expect(pm.collectionVariables.get(\"loginaction\")).to.equal(respbody( \"a[href='logout']\").attr('href'));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/loginaction?email_id=user1@user1.com&pwd=user1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"loginaction"
+							],
+							"query": [
+								{
+									"key": "email_id",
+									"value": "user1@user1.com"
+								},
+								{
+									"key": "pwd",
+									"value": "user1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/signupaction?email_id=user4@user4.com&pwd=user4&pwd2=user4&name=Ponnu&address=Gulmohar Park&city=New Delhi",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signupaction"
+							],
+							"query": [
+								{
+									"key": "email_id",
+									"value": "user4@user4.com"
+								},
+								{
+									"key": "pwd",
+									"value": "user4"
+								},
+								{
+									"key": "pwd2",
+									"value": "user4"
+								},
+								{
+									"key": "name",
+									"value": "Ponnu"
+								},
+								{
+									"key": "address",
+									"value": "Gulmohar Park"
+								},
+								{
+									"key": "city",
+									"value": "New Delhi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginPage",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "home",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const src = cheerio.load(responseBody);\r",
+									"console.log(src( \"select[name='source'] option:nth-child(3)\").val());\r",
+									"pm.collectionVariables.set(\"src\", src(\"select[name='source'] option:nth-child(3)\").val());\r",
+									"\r",
+									"const des = cheerio.load(responseBody);\r",
+									"console.log(des( \"select[name='destination'] option:nth-child(4)\").val());\r",
+									"pm.collectionVariables.set(\"des\", src(\"select[name='destination'] option:nth-child(4)\").val());\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/home",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchflight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const fid = cheerio.load(responseBody);\r",
+									"console.log(fid( \"a[href^='book']\").attr('href'));\r",
+									"pm.collectionVariables.set(\"fid\", fid( \"a[href^='book']\").attr('href'));\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/home?source={{src}}&destination={{des}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"home"
+							],
+							"query": [
+								{
+									"key": "source",
+									"value": "{{src}}"
+								},
+								{
+									"key": "destination",
+									"value": "{{des}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bookflight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ValidateResponse\", function () {\r",
+									"    const respbody = cheerio.load(responseBody);\r",
+									"    console.log(respbody(\"a[href='completepurchase']\").text());\r",
+									"     pm.expect(pm.collectionVariables.get(\"completepurchase\")).to.equal(respbody( \"a[href='completepurchase']\").text());\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{fid}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{fid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "completebooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ValidateResponse\", function () {\r",
+									"    const respbody = cheerio.load(responseBody);\r",
+									"    console.log(respbody(\"a[href='memberbookings']\").text());\r",
+									"    pm.expect(pm.collectionVariables.get(\"checkbookings\")).to.equal(respbody( \"a[href='memberbookings']\").text());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/completepurchase",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"completepurchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "memberbookings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RetrieveText\", function () {\r",
+									"    const respbody = cheerio.load(responseBody);\r",
+									"    \r",
+									"    const selectedElement = respbody(\"body\"); // Select the <body> element\r",
+									"    const textContent = selectedElement.text(); // Get the text content of the <body> element\r",
+									"    \r",
+									"    console.log(\"Text content:\", textContent);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/memberbookings",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"memberbookings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8081/FlyAway",
+			"type": "string"
+		},
+		{
+			"key": "loginaction",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "src",
+			"value": ""
+		},
+		{
+			"key": "des",
+			"value": ""
+		},
+		{
+			"key": "fid",
+			"value": ""
+		},
+		{
+			"key": "completepurchase",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "checkbookings",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

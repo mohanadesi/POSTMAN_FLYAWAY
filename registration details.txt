@@ -1,0 +1,9 @@
+email_id: user1@user1.com
+pwd: user1
+pwd2: user1
+name: Adhi
+address: Pattaravakkam
+city: Chennai
+
+
+
